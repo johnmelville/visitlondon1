@@ -1,0 +1,25 @@
+{
+  "name": "workflow1",
+  "version": "1.0.0",
+  "description": "Workflow with Npm Gulp and SASS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/johnmelville/workflow1.git"
+  },
+  "keywords": [
+    "SASS",
+    "NPM",
+    "Git",
+    "Gulp"
+  ],
+  "author": "John Melville",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/johnmelville/workflow1/issues"
+  },
+  "homepage": "https://github.com/johnmelville/workflow1#readme"
+}
