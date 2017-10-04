@@ -17,6 +17,7 @@ var htmlmin = require('gulp-htmlmin');
 
 var SOURCEPATHS = {
   sassSource : 'src/scss/*.scss',
+  sassApp: 'src/scss/app.scss',
   htmlSource : 'src/*.html',
   htmlPartialSource : 'src/partial/*.html',
   jsSource   : 'src/js/**',
@@ -42,14 +43,9 @@ gulp.task('clean-scripts', function(){
 });
 
 gulp.task('sass', function(){
-  var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
-  var sassFiles;
-
-
-  sassFiles =  gulp.src(SOURCEPATHS.sassSource)
+  sassFiles =  gulp.src(SOURCEPATHS.sassApp)
     .pipe(autoprefixer())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
-    return merge(bootstrapCSS, sassFiles )
       .pipe(concat('app.css'))
       .pipe(gulp.dest(APPPATH.css));
 });
@@ -60,12 +56,6 @@ gulp.task('images', function() {
     .pipe(imagemin())
     .pipe(gulp.dest(APPPATH.img));
 });
-
-gulp.task('moveFonts', function(){
-  gulp.src('./node_modules/bootstrap/dist/fonts/*.{eot,svg,ttf,woff,woff2}')
-    .pipe(gulp.dest(APPPATH.fonts));
-});
-
 
 gulp.task('scripts', ['clean-scripts'], function(){
   gulp.src(SOURCEPATHS.jsSource)
@@ -84,14 +74,9 @@ gulp.task('compress', function(){
 });
 
 gulp.task('compresscss', function(){
-  var bootstrapCSS = gulp.src('./node_modules/bootstrap/dist/css/bootstrap.css');
-  var sassFiles;
-
-
   sassFiles =  gulp.src(SOURCEPATHS.sassSource)
     .pipe(autoprefixer())
     .pipe(sass({outputStyle: 'expanded'}).on('error', sass.logError))
-    return merge(bootstrapCSS, sassFiles )
       .pipe(concat('app.css'))
       .pipe(cssmin())
       .pipe(rename({suffix: '.min'}))
@@ -126,7 +111,7 @@ gulp.task('serve', ['sass'], function(){
   })
 });
 
-gulp.task('watch', ['serve', 'sass','clean-html','clean-scripts','scripts','moveFonts','images','html'], function(){
+gulp.task('watch', ['serve', 'sass','clean-html','clean-scripts','scripts','images','html'], function(){
   gulp.watch([SOURCEPATHS.sassSource], ['sass']);
   // gulp.watch([SOURCEPATHS.htmlSource], ['copy']);
   gulp.watch([SOURCEPATHS.jsSource], ['scripts']);
